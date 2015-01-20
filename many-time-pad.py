@@ -27,18 +27,44 @@ def strxor(a, b):     # xor two strings of different lengths
 def main():
     key = {}
 
-    for i in range(1, 9):
-        m1 = EMSGS[0].decode("hex")
-        m2 = EMSGS[i].decode("hex")
-        mxor = strxor(m1, m2)
-        for i in range(0, len(mxor)):
-            if mxor[i] == " " or mxor[i].isalnum():
-                print "%s it's a space" % m1[i]
-            else:
-                print "%s it's a letter" % m1[i]
+    for m1_ in EMSGS:
+        for m2_ in EMSGS:
+            m1 = m1_.decode("hex")
+            m2 = m2_.decode("hex")
+            mxor = strxor(m1, m2)
+            for j in range(0, len(mxor)):
+                if mxor[j].isalpha():
+                    if j in key:
+                        print "%s == %s" % (key[j], strxor(m1[j], m2[j]))
+                    else:
+                        key[j] = strxor(mxor[j], " ")
 
         #print strxor(EMSGS[0].decode("hex"), EMSGS[i].decode("hex")).encode("hex")
         #print strxor(EMSGS[0].decode("hex"), EMSGS[i].decode("hex"))
+
+    print key
+
+    ks = ""
+    for c in key:
+        ks += key[c]
+
+    print ks[0:len(EMSGS[10].decode("hex"))]
+    answer = "We can factor the number 15 with quantum computers. We can also factor the number 1"
+    print answer
+    key_t = strxor(EMSGS[10].decode("hex"), answer)
+
+    a_0   = "The secret message is: When using a stream cipher, never use the key more than once."
+    key_0 = strxor(EMSGS[10].decode("hex"), a_0)
+
+    for m in EMSGS:
+        print strxor(m.decode("hex"), key_0)
+
+    target = "32510ba9babebbbefd001547a810e67149caee11d945cd7fc81a05e9f85aac650e9052ba6a8cd8257bf14d13e6f0a803b54fde9e77472dbff89d71b57bddef121336cb85ccb8f3315f4b52e301d16e9f52f904"
+
+
+    print strxor(target.decode("hex"), key_0)
+    print EMSGS[10]
+    print answer.encode("hex")
 
 if __name__ == "__main__":
     main()
