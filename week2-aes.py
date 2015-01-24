@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from Crypto.Cipher import AES
 from Crypto import Random
